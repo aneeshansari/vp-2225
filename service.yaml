@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: mypod-svc
+spec:
+  type: NodePort
+  selector:
+    run: mypod
+  ports:
+  - port: 80
+    protocol: TCP
