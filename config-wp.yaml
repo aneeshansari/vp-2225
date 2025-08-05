@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mywp
+data:
+  pass: test123
+  user: root

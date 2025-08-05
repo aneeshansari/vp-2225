@@ -17,21 +17,9 @@ spec:
       limits:
         cpu: "1000m"
         memory: "512Mi"
-    env:
-    - name: WORDPRESS_DB_HOST
-      value: wordpress
-    - name: WORDPRESS_DB_USER
-      valueFrom:
-        configMapKeyRef:
-          name: mywp
-          key: user 
- 
-    - name: WORDPRESS_DB_PASSWORD
-      value: test123
-    - name: WORDPRESS_DB_NAME
-      value: wordpress
-    - name: WORDPRESS_TABLE_PREFIX
-      value: wp_
+    envFrom:
+    - configMapRef:
+        name: wpval
   - name: con2
     image: mysql:5.7
     ports:
