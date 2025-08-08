@@ -1,0 +1,7 @@
+apiVersion: v1
+data:
+  crt: aGVsbG8sIHRoaXMgaXMgbXkgY2VydGlmaWNhdGUgZmlsZS4uLi4uLgo=
+kind: Secret
+metadata:
+  creationTimestamp: null
+  name: myapp-crt
