@@ -1,0 +1,58 @@
+  985  kubectl -n devops get pods
+  986  kubectl -n devops create role devops-role --verb create,get,delete,list --resource pods,deployment,configmaps --dry-run=client -o yaml
+  987  kubectl -n devops create role devops-role --verb create,get,delete,list --resource pods,deployment,configmaps --dry-run=client -o yaml > role.yaml
+  988  vi role.yaml
+  989  kubectl -n devops create role devops-role --verb create,get,delete,list --resource pods,deployment,configmaps
+  990  kubectl -n devops get role
+  991  kubectl -n devops create sa mango --dry-run=client -o yaml
+  992  kubectl -n devops create sa robo
+  993  kubectl -n devops get sa
+  994  cp pod.yaml sa-pod.yaml
+  995  kubectl -n devops exec -it pod/newpod -- bash
+  996  kubectl delete -f pod.yaml
+  997  vi sa-pod.yaml
+  998  kubectl -n devops get role,rolebindings.rbac.authorization.k8s.io
+  999  kubectl -n devops create rolebinding devops-rb --role devops-role --help
+ 1000  kubectl -n devops create rolebinding devops-rb --role devops-role --serviceaccount devops:robo --dry-run=client -o yaml
+ 1001  kubectl -n devops create rolebinding devops-rb --role devops-role --serviceaccount devops:robo --dry-run=client -o yaml > role-binding.yaml
+ 1002  vi role-binding.yaml
+ 1003  kubectl create -f role-binding.yaml
+ 1004  vi role-binding.yaml
+ 1005  kubectl -n devops get role,rolebindings.rbac.authorization.k8s.io
+ 1006  vi sa-pod.yaml
+ 1007  kubectl create -f sa-pod.yaml
+ 1008  kubectl -n devops get pods
+ 1009  kubectl -n devops describe pods newpod
+ 1010  kubectl auth can-i create pod --help
+ 1011  kubectl auth can-i create pods --all-namespaces
+ 1012  kubectl -n devops auth can-i create pods
+ 1013  kubectl -n devops auth can-i create pods --as devops:robo
+ 1014  kubectl -n devops auth can-i create pods --as=system:serviceaccount:devops:robo
+ 1015  kubectl -n devops auth can-i create secrets --as=system:serviceaccount:devops:robo
+ 1016  kubectl -n devops auth can-i create deployment --as=system:serviceaccount:devops:robo
+ 1017  kubectl -n devops auth can-i create configmaps --as=system:serviceaccount:devops:robo
+ 1018  kubectl -n devops exec -it newpod -- bash
+
+
+#################################  user RBAC
+
+kubectl config set-credentials aneesh --client-key cert/aneesh.key --client-certificate cert/aneesh.crt --embed-certs
+ll
+vi .kube/config
+kubectl config set-context aneesh-con --user=aneesh --cluster=kubernetes
+vi .kube/config
+kubectl config set-context --current aneesh-con
+kubectl config set-context --current=aneesh-con
+kubectl config use-context --current=aneesh-con
+kubectl config use-context aneesh-con
+vi .kube/config
+kubectl get pods
+kubectl get pods -n devops
+kubectl get secrets -n devops
+kubectl get configmaps -n devops
+kubectl get configmaps
+kubectl config set-context --current --namespace devops
+
+
+
+
